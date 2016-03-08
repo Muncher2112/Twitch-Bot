@@ -2,13 +2,14 @@
 import re
 import socket
 import sys
-import random 
+import random
+import time
 # --------------------------------------------- Start Settings ----------------------------------------------------
 HOST = "irc.twitch.tv"                          # Hostname of the IRC-Server in this case twitch's
-PORT = 6667                                     # Default IRC-Port
+PORT = PORT                                     # Default IRC-Port
 CHAN = "#CHANNEL"                               # Channelname = #{Nickname}
 NICK = "USERNAME"                                # Nickname = Twitch username
-PASS = "oauth:AUTHORIZATIONKEY"   # www.twitchapps.com/tmi/ will help to retrieve the required authkey
+PASS = "OATH KEY"   # www.twitchapps.com/tmi/ will help to retrieve the required authkey
 # --------------------------------------------- End Settings -------------------------------------------------------
 
 # --------------------------------------------- Start Functions ----------------------------------------------------
@@ -108,8 +109,11 @@ while True:
                     sender = get_sender(line[0])
                     message = get_message(line)
                     parse_message(message)
-                    with open('logs.txt','a') as f:
-                        f.write(sender + ": " + message + "\n")
+                    try:
+                        with open('logs_SUMMIT1G_3_8_2016.txt','a') as f:
+                            f.write(time.strftime("%d/%m/%Y") + ":" + time.strftime("%H:%M:%S") + ":"+ sender + ":" + message + "\n")
+                    except:
+                        print("ERROR")
                     print("wrote")
                     print(sender + ": " + message)
     except socket.error:
